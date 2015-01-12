@@ -1,0 +1,13 @@
+".container": {
+	backgroundColor:"#ccc"
+}
+
+"Label": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+	color: "#000"
+}
+
+"#gameTable": {
+	backgroundColor:"#444"
+}

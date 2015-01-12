@@ -1,0 +1,6 @@
+<Alloy>
+	<Window class="container">
+		<View id="gameTable" height="320" width="320" borderRadius="8" onSwipe="swiper">
+		</View>
+	</Window>
+</Alloy>

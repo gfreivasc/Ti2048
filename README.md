@@ -1,2 +1,5 @@
 # Ti2048
-2048 on Titanium with Alloy
+Projeto do jogo 2048 feito em Titanium/Alloy.
+Testado apenas em Android.
+
+O nome do projeto é 2048.
