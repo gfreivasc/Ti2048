@@ -24,7 +24,7 @@ for (var i = 0; i < 10; ++i) {
 		var date = Ti.UI.createLabel({
 			text: strDate,
 			font: { fontSize: 20 },
-			width: Ti.UI.FILL,
+			width: Ti.UI.FILL - 20,
 			textAlign: "right",
 			color:'#bbb'
 		});

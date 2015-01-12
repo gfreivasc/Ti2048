@@ -21,12 +21,9 @@ function initRank() {
 		scoreRank.push({rank: 0, score: rows.fieldByName('score'), date: rows.fieldByName('data')});
 		rows.next();
 	}
-	
-	Ti.API.log(scoreRank);
 }
 
 function updateRank(newScore) {
-	var put = false;
 	var min = 0xffffff;
 	var mIdx = 0;
 	var d = (new Date()).toISOString();

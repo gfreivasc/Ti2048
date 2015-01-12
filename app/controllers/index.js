@@ -129,6 +129,7 @@ function newTile() {
 	}
 	
 	if (tilesInGame === 16 && !checkGamePlayable()) {
+		gameOverDialog.message = 'Your score was '+gamePoints+'. Would you like to try again?';
 		gameOverDialog.show();
 		updateRank(gamePoints);
 		initGame();
@@ -139,9 +140,7 @@ function swiper(e) {
 	var dir = e.direction;
 	var moved = false;
 	Titanium.API.log(dir);
-	
-	gameOverDialog.show();
-	
+
 	if (dir === "up") {
 		var col = [];
 		for (var i = 0; i < 4; ++i) {
