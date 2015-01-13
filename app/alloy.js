@@ -18,18 +18,42 @@ function initRank() {
 	var rows = db.execute('SELECT * FROM scores');
 	
 	while (rows.isValidRow()) {
-		scoreRank.push({rank: 0, score: rows.fieldByName('score'), date: rows.fieldByName('data')});
-		rows.next();
+		var sqlDate = rows.fieldByName('data');
+		
+		if (sqlDate) {
+			var format = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/g;
+			var dateArray = format.exec(sqlDate);
+			
+			Ti.API.log(dateArray);
+			
+			var date = new Date(
+				(dateArray[1]),
+				(dateArray[2] - 1),
+				(dateArray[3]),
+				(dateArray[4]),
+				(dateArray[5]),
+				(dateArray[6])
+			);
+			
+			scoreRank.push({rank: 0, score: rows.fieldByName('score'), date: date});
+			rows.next();
+		}
 	}
 }
 
 function updateRank(newScore) {
 	var min = 0xffffff;
 	var mIdx = 0;
-	var d = (new Date()).toISOString();
+	var d = new Date();
+	var time = d.toLocaleTimeString();
+	var date = d.getFullYear()+"-"+("0"+d.getMonth() + 1).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+	var strDate = date+" "+time;
+	
+	Ti.API.log(strDate);
 	
 	if (scoreRank.length < 10) {
-		db.execute('INSERT INTO scores(data, score) VALUES ('+d+', '+newScore+')');
+		db.execute('INSERT INTO scores(data, score) VALUES (\''+strDate+'\', '+newScore+')');
+		scoreRank.push({rank: 0, score: newScore, date: d});
 	}
 	else {
 		for (var i = 0; i < 10; ++i) {
@@ -46,7 +70,7 @@ function updateRank(newScore) {
 			scoreRank[mIdx].date = d;
 				
 			db.execute('DELETE FROM scores WHERE score='+min);
-			db.execute('INSERT INTO scores(score) VALUES ('+newScore+')');
+			db.execute('INSERT INTO scores(data, score) VALUES (\''+strDate+'\', '+newScore+')');
 		}
 	}
 }
